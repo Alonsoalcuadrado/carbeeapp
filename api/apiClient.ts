@@ -39,7 +39,7 @@ export function fetchAppointments(params: { size: number; before?: Cursor; after
   const query = new URLSearchParams(params as any).toString();
   return fetchAPI(`api/appointments?${query}`, {
       headers: {
-          'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
   });
 }
@@ -47,7 +47,7 @@ export function fetchAppointments(params: { size: number; before?: Cursor; after
 export function fetchAppointmentTimeAvailability(date: string): Promise<string[]> {
   return fetchAPI(`api/availability/${date}`, {
       headers: {
-          'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
   });
 }
