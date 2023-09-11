@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://url-de-tu-api/:path*',
+        destination: 'https://backend.billowing-truth-38ad.workers.dev/:path*',
       },
     ];
   },
