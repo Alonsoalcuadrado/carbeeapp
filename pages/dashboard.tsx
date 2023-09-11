@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 import { fetchAppointments, fetchAppointmentTimeAvailability } from '../api/apiClient';
 import { useRouter } from 'next/router';
 import "../styles/dashboard.css"
@@ -30,6 +31,17 @@ const Dashboard: React.FC = () => {
     fetchAppointments({ size: 10 }).then(data => setAppointments(data.edges));
   }, [selectedDate]);
 
+  const formatDate = (dateStr: string) => {
+    return moment(dateStr).format('LL');
+  };
+
+  const getNextWeekDates = () => {
+    const dates = [];
+    for (let i = 0; i < 7; i++) {
+      dates.push(moment().add(i, 'days').format('YYYY-MM-DD'));
+    }
+    return dates;
+  };
 
   return (
     <div className="dashboard-container">
@@ -40,15 +52,13 @@ const Dashboard: React.FC = () => {
       <section className="status-box">
         <h3>Availability</h3>
         <div className="select-box">
-          <select value={selectedDate} onChange={e => setSelectedDate(e.target.value)}>
-          </select>
-        </div>
-        <div className="service-box">
-          <ul>
-            {availability.map(time => (
-              <li key={time}>{time}</li>
+        <select value={selectedDate} onChange={e => setSelectedDate(e.target.value)}>
+            {getNextWeekDates().map(date => (
+              <option value={date} key={date}>
+                {formatDate(date)}
+              </option>
             ))}
-          </ul>
+          </select>
         </div>
       </section>
 
