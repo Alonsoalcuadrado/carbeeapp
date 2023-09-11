@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchAppointments, fetchAppointmentTimeAvailability } from '../api/apiClient';
 import { useRouter } from 'next/router';
+import "../styles/dashboard.css"
 
 const Dashboard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<string>(() => {
@@ -31,36 +32,46 @@ const Dashboard: React.FC = () => {
 
 
   return (
-    <div>
-      <h2>Dashboard</h2>
+    <div className="dashboard-container">
+      <div className="date-box">
+        <h2>Dashboard</h2>
+      </div>
 
-      <section>
-        <h3>Disponibilidad</h3>
-        <select value={selectedDate} onChange={e => setSelectedDate(e.target.value)}>
-        </select>
-        <ul>
-          {availability.map(time => (
-            <li key={time}>{time}</li>
-          ))}
-        </ul>
+      <section className="status-box">
+        <h3>Availability</h3>
+        <div className="select-box">
+          <select value={selectedDate} onChange={e => setSelectedDate(e.target.value)}>
+          </select>
+        </div>
+        <div className="service-box">
+          <ul>
+            {availability.map(time => (
+              <li key={time}>{time}</li>
+            ))}
+          </ul>
+        </div>
       </section>
 
-      <section>
-        <h3>Mis Citas</h3>
-        <ul>
-          {appointments.map(appointment => (
-            <li key={appointment.id}>
-              <div>Status: {appointment.status}</div>
-              <div>Start Time: {appointment.startTime}</div>
-              <div>Duration: {appointment.duration}</div>
-              {appointment.completeTime && <div>Complete Time: {appointment.completeTime}</div>}
-              <div>Service: {appointment.workOrderDto?.service}</div>
-            </li>
-          ))}
-        </ul>
+      <section className="status-box">
+        <h3>Appointments</h3>
+        <div className="service-box">
+          <ul>
+            {appointments.map(appointment => (
+              <li key={appointment.id}>
+                <div><strong>Status:</strong> {appointment.status}</div>
+                <div><strong>Start Time:</strong> {appointment.startTime}</div>
+                <div><strong>Duration:</strong> {appointment.duration}</div>
+                {appointment.completeTime && <div><strong>Complete Time:</strong> {appointment.completeTime}</div>}
+                <div><strong>Service:</strong> {appointment.workOrderDto?.service}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
     </div>
   );
+
+
 }
 
 export default Dashboard;

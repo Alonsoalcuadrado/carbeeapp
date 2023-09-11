@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { loginUser, LoginRequestBody } from '../api/apiClient'; // Asegúrate de importar desde la ubicación correcta.
+import { loginUser, LoginRequestBody } from '../api/apiClient';
+import "../styles/login.css";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
@@ -15,9 +16,9 @@ const LoginPage: React.FC = () => {
       const credentials: LoginRequestBody = { username, password };
       const response = await loginUser(credentials);
       if (response.token) {
-        // Guarda el token en localStorage
+        // Save token in session storage
         sessionStorage.setItem('token', response.token);
-        // Redirige al usuario al dashboard
+        // Redirect user to dashboard
         router.push('/dashboard');
       } else {
         setError('Error en inicio de sesión');
@@ -28,31 +29,25 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className="login-container">
+    <div className="login-box">
+      <h2 className="login-title">Iniciar Sesión</h2>
+      <form onSubmit={handleSubmit} className="login-form">
+        <div className="input-group">
           <label>Usuario</label>
-          <input 
-            type="text" 
-            value={username} 
-            onChange={e => setUsername(e.target.value)}
-          />
+          <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
         </div>
-        <div>
+        <div className="input-group">
           <label>Contraseña</label>
-          <input 
-            type="password" 
-            value={password} 
-            onChange={e => setPassword(e.target.value)}
-          />
+          <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
         </div>
-        {error && <p>{error}</p>}
-        <div>
+        {error && <p className="login-error">{error}</p>}
+        <div className="login-actions">
           <button type="submit">Entrar</button>
         </div>
       </form>
     </div>
+  </div>
   );
 }
 
