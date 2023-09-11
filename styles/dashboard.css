@@ -58,3 +58,30 @@ select {
 .select-box {
   margin-bottom: 1rem;
 }
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* Espacio entre los botones */
+  margin-top: 2rem;
+}
+
+.pagination-controls button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #007bff; /* Color de fondo azul */
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination-controls button:hover {
+  background-color: #0056b3; /* Color de fondo un poco más oscuro cuando se pasa el ratón encima */
+}
+
+.pagination-controls button:disabled {
+  background-color: #ccc; /* Color de fondo gris para botones deshabilitados */
+  cursor: not-allowed;
+}

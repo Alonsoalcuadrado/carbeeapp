@@ -5,6 +5,9 @@ export type LoginRequestBody = {
   password: string
 }
 
+export type Cursor = string;
+
+
 async function fetchAPI(endpoint: string, { method = 'GET', body = undefined, headers = {} } = {}) {
     const response = await fetch(BASE_URL + endpoint, {
         method,
